@@ -3,6 +3,7 @@
 2. Adicione a diretiva 'use strict';
 3. Crie um arquivo index.html e adicione esse script à ele.
 */
+(function() {
 
 /*
 Crie uma função chamada `cleanCPF`, que receba um CPF por parâmetro, e
@@ -15,7 +16,21 @@ eles! Use um console.log para cada CPF.
 - "101.123-131x32"
 */
 console.log( 'Limpando CPFs:' );
-// ?
+
+function cleanCPF(cpf){
+
+  var regex = /[^\d]/g;
+
+  return cpf.replace(regex, '');
+}
+
+var cpfs = ['049-214 3421-1' ,'210.458.522-05',
+  '735 500 794 - 22' ,'101.123-131x32'];
+
+cpfs.forEach(function(item) {
+  console.log(cleanCPF(item));
+});
+
 
 /*
 Usando os CPFs limpos acima, deixe-os com a formatação correta de CPF.
@@ -23,7 +38,16 @@ Ex.: "999.999.999-99"
 Mostre o resultado no console.
 */
 console.log( '\nFormatando CPFs corretamente:' );
-// ?
+function formatCPF(cpfNumber){
+  var regex = /(\d{3})(\d{3})(\d{3})(\d{2})/g;
+
+  return cpfNumber.replace(regex, '$1.$2.$3-$4');
+}
+
+cpfs.forEach(function(item) {
+  console.log(formatCPF(cleanCPF(item)));
+});
+
 
 /*
 Crie uma expressão regular que faça match com as palavras "junho" ou "julho",
@@ -37,7 +61,11 @@ O resultado deve ser:
 ["junho", "julho"]
 */
 console.log( '\nMatch com as palavras "junho" ou "julho" para a frase "Os meses de janeiro, junho e julho começam com a letra j.":' );
-// ?
+
+var regex = new RegExp('ju[nl]ho', 'g');
+
+console.log(regex);
+console.log("Os meses de janeiro, junho e julho começam com a letra j.".match(regex));
 
 /*
 Crie uma expressão regular que faça o match com a abertura de uma tag
@@ -51,6 +79,10 @@ O resultado deve ser:
 console.log( '\nMatch com a abertura de uma tag HTML:' );
 // ?
 
+var htmlRegex = new RegExp('<(\\w+)>', 'g');
+
+console.log('<div><section><blockquote>Texto <img /></blockquote></section></div>'.match(htmlRegex));
+
 /*
 Crie uma expressão regular que faça o match com uma tag HTML vazia, casando
 com a abertura e fechamento da tag.
@@ -61,7 +93,10 @@ O resultado deve ser:
 ["<li></li>", "<li></li>", "<span></span>"]
 */
 console.log( '\nMatch com tags HTML vazias (abertura e fechamento da tag):' );
-// ?
+
+var fullHtmlRegex = new RegExp('(<(\\w+)>)(<\\/\\2>)', 'g');
+
+console.log('<div><ul><li></li><li></li><li><span></span></li></ul></div>'.match(fullHtmlRegex));
 
 /*
 Vamos complicar um pouco agora :D
@@ -86,4 +121,13 @@ https://regex101.com/#javascript e verifique se as capturas estão
 corretas, para depois aplicar no código ;)
 */
 console.log( '\nFazer replace dos textos das tags:' );
-// ?
+
+var myRegex = /(<(\w+)>)(.+)(<\/\2>)/g;
+var text = '<h1>Título da página</h1><p>Este é um parágrafo</p><footer>Rodapé</footer>';
+
+console.log(text.replace(myRegex, function(fullMatch, tag, tagCode, tagContent, tagClose){
+  return tag + 'O texto dentro da tag "' + tagCode + '" é "' + tagContent + '"' + tagClose;
+}));
+
+
+})();
