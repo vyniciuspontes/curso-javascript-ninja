@@ -14,4 +14,62 @@ Utilize o atributo data-js para nomear o campo e os botões. Você pode
 usar o nome que achar melhor, desde que ele seja semântico, ou seja, o nome
 dado ao elemento HTML deve definir o que o elemento é ou o que ele faz.
 */
-// ?
+
+(function (win, doc) {
+  'use strict'
+
+  var hours = 0;
+  var minutes = 0;
+  var seconds = 0;
+  var currentInterval;
+  var $h1 = doc.querySelector('[data-js="timer"');
+  var $startButton = doc.querySelector('[data-js="startButton"]');
+  var $stopButton = doc.querySelector('[data-js="stopButton"]');
+  var $resetButton = doc.querySelector('[data-js="resetButton"]');
+
+
+  $startButton.addEventListener('click', function(event) {
+    if(currentInterval)
+      return;
+    runTimer();
+  }, false);
+  $stopButton.addEventListener('click', stopTimer, false);
+  $resetButton.addEventListener('click', resetTimer, false);
+
+  function updateTimer() {
+    if(seconds >= 60){
+      seconds = 0;
+      minutes++;
+    }else if(minutes >= 60){
+      minutes = 0;
+      hours++;
+    }
+
+    $h1.innerHTML = (hours >= 10 ? hours : '0' + hours) + ':' + (minutes >= 10 ? minutes : '0' + minutes) + ':'
+      + (seconds >= 10 ? seconds : '0' + seconds);
+  }
+
+  function stopTimer(){
+      win.clearTimeout(currentInterval);
+      currentInterval = null;
+  }
+
+  function resetTimer(){
+    stopTimer();
+    hours = 0;
+    minutes = 0;
+    seconds = 0;
+    updateTimer();
+  }
+
+  function runTimer() {
+
+    currentInterval = win.setTimeout(function () {
+        seconds++;
+        updateTimer();
+        return runTimer();
+      }, 1000);
+  }
+
+
+})(window, document);
