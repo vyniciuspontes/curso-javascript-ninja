@@ -1,4 +1,5 @@
 (function(win, doc) {
+  'use strict'
   /*
   O desafio dessa semana é criar uma mini library (biblioteca) para
   reutilizarmos nossos códigos quando fizermos manipulação de DOM!
@@ -65,7 +66,7 @@
     return Array.prototype.reduce.apply(this.element, arguments);
   }
 
-  DOM.prototype.reduceRight = function reduceRight(arguments) {
+  DOM.prototype.reduceRight = function reduceRight() {
     return Array.prototype.reduceRight.apply(this.element, arguments);
   }
 

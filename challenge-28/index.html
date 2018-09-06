@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Consulta CEP</title>
+
+    <style>
+      #table-section {
+        margin-top: 10px;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div>
+      <h1>Consulta Cep</h1>
+    </div>
+    <div>
+      <input type="text" data-js="cep" value="22723-020" required></input>
+      <button data-js="send-button">Enviar</button>
+      <small data-js="status"></small>
+    </div>
+
+    <div id="table-section">
+      <table>
+        <tr>
+          <th>
+            Estado
+          </th>
+          <th>
+            Cidade
+          </th>
+          <th>
+            Bairro
+          </th>
+          <th>
+            Endereço
+          </th>
+        </tr>
+        <tr data-js="data-row">
+        </tr>
+      <table>
+    </div>
+
+    <script src="challenge-28.js"></script>
+  </body>
+</html>
